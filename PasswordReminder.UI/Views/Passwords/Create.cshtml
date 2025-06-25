@@ -1,0 +1,82 @@
+﻿@model PasswordReminder.UI.Models.PasswordCreateViewModel
+@{
+    ViewData["Title"] = "Add New Password";
+    var categories = ViewBag.Categories as List<PasswordReminder.Entities.Category>;
+}
+
+<style>
+    .card {
+    border-radius: 0.75rem;
+    }
+
+    .form-label {
+    font-weight: 500;
+    }
+</style>
+
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
+        <h3 class="card-title text-center text-primary mb-4">@ViewData["Title"]</h3>
+
+        <form asp-action="Create" method="post">
+            <!-- Title -->
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" placeholder="e.g. Gmail, GitHub..." />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <!-- URL -->
+            <div class="form-group mb-3">
+                <label asp-for="Url" class="form-label"></label>
+                <input asp-for="Url" class="form-control" placeholder="https://example.com" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+
+            <!-- Username -->
+            <div class="form-group mb-3">
+                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group mb-3">
+                <label class="form-label">Category</label>
+                <select class="form-select" onchange="document.getElementById('CategoryName').value=this.value">
+                    <option value="">-- Select Existing Category --</option>
+                    @foreach (var cat in categories)
+                    {
+                        <option value="@cat.Name">@cat.Name</option>
+                    }
+                </select>
+
+                <input type="text" asp-for="CategoryName" id="CategoryName" class="form-control mt-2" placeholder="Or enter a new category" />
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-circle-fill"></i> Save Password
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Back to List
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

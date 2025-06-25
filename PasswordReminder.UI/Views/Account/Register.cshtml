@@ -1,0 +1,82 @@
+﻿@model PasswordReminder.UI.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Create an account";
+}
+<style>
+    .card {
+        border-radius: 0.75rem;
+    }
+</style>
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="card shadow p-4" style="max-width: 500px; width: 100%;">
+        <h3 class="card-title text-center text-primary mb-4">@ViewData["Title"]</h3>
+
+        <form asp-action="Register" method="post">
+            <!-- E-Posta -->
+            <div class="form-group mb-3">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- Şifre -->
+            <div class="form-group mb-3">
+                <label asp-for="Password"></label>
+                <div class="input-group">
+                    <input asp-for="Password" class="form-control" id="PasswordInput" />
+                    <button type="button" class="btn btn-outline-secondary toggle-password" data-target="PasswordInput">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+                <!-- Şifre güvenlik seviyesi -->
+                <small id="PasswordStrength" class="form-text mt-1"></small>
+
+                <!-- Şifre üretici -->
+                <div class="mt-2">
+                    <button type="button" id="GenerateBtn" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-lightning-charge"></i> Create a Strong Password
+                    </button>
+                </div>
+            </div>
+
+            <!-- Şifre Tekrar -->
+            <div class="form-group mb-4">
+                <label asp-for="ConfirmPassword"></label>
+                <div class="input-group">
+                    <input asp-for="ConfirmPassword" class="form-control" id="ConfirmPasswordInput" />
+                    <button type="button" class="btn btn-outline-secondary toggle-password" data-target="ConfirmPasswordInput">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <!-- Kayıt Butonu -->
+            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+
+            <!-- Giriş Yönlendirme -->
+            <div class="text-center mt-3">
+                <a asp-action="Login" class="text-decoration-none">Do you already have an account? <strong>Log In</strong></a>
+            </div>
+        </form>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <div>@error.ErrorMessage</div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/register.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
