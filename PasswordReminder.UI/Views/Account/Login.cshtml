@@ -9,7 +9,7 @@
     }</style>
 
 <div class="d-flex justify-content-center align-items-center mt-5">
-    <div class="card shadow p-4" style="max-width: 500px; width: 100%;">
+    <div class="form-container">
         <h3 class="card-title text-center text-primary mb-4">@ViewData["Title"]</h3>
 
         <form asp-action="Login" method="post">
@@ -40,6 +40,15 @@
                 <a asp-action="Register" class="text-decoration-none"> Create an Account <strong>Sign Up</strong></a>
             </div>
         </form>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <div>@error.ErrorMessage</div>
+                }
+            </div>
+        }
     </div>
 </div>
 

@@ -1,3 +1,4 @@
+/* === Temel Yapý === */
 html, body {
     height: 100%;
     margin: 0;
@@ -7,8 +8,93 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background: #eef1f5; /* Daha yumuþak, daha profesyonel */
+    font-family: 'Segoe UI', sans-serif;
 }
 
 main {
     flex: 1;
+}
+
+/* === Navbar === */
+.navbar {
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+/* === Kartlar === */
+.custom-card {
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+}
+
+    .custom-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    }
+
+/* === Logo Kutusu === */
+.card-logo {
+    height: 100px;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .card-logo img {
+        max-height: 80px;
+        max-width: 80%;
+        object-fit: contain;
+    }
+
+/* === Formlar ve Butonlar === */
+.form-container {
+    max-width: 600px;
+    width: 100%;
+    margin-top: 3rem;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #4a6cf7;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #3f5de8;
+    }
+
+.btn-outline-secondary {
+    border-color: #d1d1d1;
+}
+
+/* === Kategori Baþlýklarý === */
+.category-heading {
+    border-bottom: 1px solid #ddd;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* === Footer === */
+footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    padding: 1rem 0;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
 }

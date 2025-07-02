@@ -1,4 +1,5 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
+    // 🗑️ Silme işlemi
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
@@ -9,11 +10,29 @@
             }
         });
     });
-});
 
+    // 💬 Tooltip'ler
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 
-// Tooltip
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
+    // 🔍 Dinamik arama
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.password-card');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const keyword = searchInput.value.toLowerCase();
+
+            cards.forEach(card => {
+                const title = card.dataset.title;
+                const username = card.dataset.username;
+                const url = card.dataset.url;
+
+                const match = title.includes(keyword) || username.includes(keyword) || url.includes(keyword);
+                card.style.display = match ? 'block' : 'none';
+            });
+        });
+    }
 });

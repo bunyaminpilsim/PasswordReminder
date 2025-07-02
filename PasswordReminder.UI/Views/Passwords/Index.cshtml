@@ -12,7 +12,12 @@
     </a>
 </div>
 
-@if (!grouped.Any())
+<!-- 🔍 Dinamik Arama -->
+<div class="d-flex justify-content-center mb-4">
+    <input type="text" id="searchInput" class="form-control" style="max-width: 400px;" placeholder="Search..." />
+</div>
+<!-- 🔄 Şifre Listesi -->
+@if (!Model.Any())
 {
     <div class="alert alert-info text-center">
         You have no saved passwords yet. Click "Add New" to get started.
@@ -27,15 +32,18 @@ else
             <div class="row">
                 @foreach (var item in group)
                 {
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                        <div class="card shadow-sm h-100 border-0">
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3 password-card"
+                         data-title="@item.Title.ToLower()"
+                         data-username="@item.Username.ToLower()"
+                         data-url="@item.Url.ToLower()">
+
+                        <div class="card custom-card h-100 border-0">
 
                             <!-- Logo -->
                             <a href="@item.Url" target="_blank">
-                                <div style="height: 100px; width: 100%; background: #fff; display: flex; align-items: center; justify-content: center;">
+                                <div class="card-logo">
                                     <img src="https://logo.clearbit.com/@item.Domain"
-                                         onerror="this.onerror=null; this.src='/images/default-icon.png';"
-                                         style="max-height: 80px; max-width: 80%; object-fit: contain;" />
+                                         onerror="this.onerror=null; this.src='/images/default-icon.png';" />
                                 </div>
                             </a>
 
@@ -63,7 +71,7 @@ else
     </div>
 }
 
-<!-- Delete form -->
+<!-- 🔴 Silme Formu -->
 <form id="deleteForm" method="post" asp-action="Delete" class="d-none">
     <input type="hidden" name="id" id="deleteId" />
 </form>

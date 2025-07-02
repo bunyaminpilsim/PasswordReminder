@@ -15,7 +15,7 @@
 </style>
 
 <div class="d-flex justify-content-center align-items-center mt-5">
-    <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
+    <div class="form-container">
         <h3 class="card-title text-center text-primary mb-4">@ViewData["Title"]</h3>
 
         <form asp-action="Create" method="post">
@@ -43,8 +43,26 @@
             <!-- Password -->
             <div class="form-group mb-3">
                 <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <div class="input-group">
+                    <input asp-for="Password" class="form-control" id="GeneratedPassword" />
+                    <button type="button" class="btn btn-outline-secondary toggle-password" data-target="GeneratedPassword">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
+
+                <!-- Şifre gücü -->
+                <small id="PasswordStrength" class="form-text mt-1"></small>
+
+                <!-- Şifre üretici buton -->
+                <div class="mt-2 d-flex gap-2">
+                    <button type="button" id="GeneratePasswordBtn" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-lightning-charge"></i> Generate Strong Password
+                    </button>
+                    <button type="button" id="CopyPasswordBtn" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-clipboard"></i> Copy
+                    </button>
+                </div>
             </div>
 
             <!-- Category -->
@@ -76,6 +94,7 @@
 </div>
 
 @section Scripts {
+    <script src="~/js/password-create.js" asp-append-version="true"></script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

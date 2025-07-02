@@ -19,10 +19,19 @@ namespace PasswordReminder.UI.Controllers
             _categoryService = categoryService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search)
         {
             var email = User.FindFirstValue(ClaimTypes.Name);
-            var passwords = await _passwordService.GetPasswordsByUserEmailAsync(email);
+            var passwords = await _passwordService.GetPasswordsByUserEmailAsync(email ?? string.Empty);
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.ToLower();
+                passwords = passwords.Where(p =>
+                    p.Title.ToLower().Contains(search) ||
+                    p.Username.ToLower().Contains(search) ||
+                    p.Url.ToLower().Contains(search)).ToList();
+            }
 
             var model = passwords.Select(p => new PasswordCardViewModel
             {
